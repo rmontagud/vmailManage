@@ -1,44 +1,45 @@
 {# app/Resources/views/listAliases.html.twig #}
-{{ include('base.html.twig') }}
+{% extends 'base.html.twig' %}
 
-<script src="{{ asset('js/main.js') }}"></script>
+{% block body %}
 
+    <h1>List aliases</h1>
 
-<h1>List aliases</h1>
-
-<table>
-    <thead>
-    <tr>
-        <th colspan="3">Source</th>
-        <th colspan="3">Destination</th>
-        <th>Enabled</th>
-        <th>Action</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    {% for item in aliases %}
+    <table>
+        <thead>
         <tr>
-            <td>{{ item.source_username }}</td>
-            <td>@</td>
-            <td>{{ item.source_domain }}</td>
-            <td>{{ item.destination_username }}</td>
-            <td>@</td>
-            <td>{{ item.destination_domain }}</td>
-            <td>{% if item.enabled %} yes {% else %} no {% endif %}</td>
-            <td>
-                <a href="{{ item.id }}">edit</a>
-                <a href="#" onclick="confirmAction('{{ item.source_username }}@{{ item.source_domain }}', 'delete/{{ item.id }}');">delete</a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="7"></td>
-        <td><a href="new">+ new</a></td>
-    </tr>
-    </tfoot>
-</table>
+            <th colspan="3">Source</th>
+            <th colspan="3">Destination</th>
+            <th>Enabled</th>
+            <th>Action</th>
 
-{{ include('base_bottom.html.twig') }}
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in aliases %}
+            <tr>
+                <td>{{ item.source_username }}</td>
+                <td>@</td>
+                <td>{{ item.source_domain }}</td>
+                <td>{{ item.destination_username }}</td>
+                <td>@</td>
+                <td>{{ item.destination_domain }}</td>
+                <td>{% if item.enabled %} yes {% else %} no {% endif %}</td>
+                <td>
+                    <a href="{{ item.id }}">edit</a>
+                    <a href="#" onclick="confirmAction('{{ item.source_username }}@{{ item.source_domain }}', 'delete/{{ item.id }}');">delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7"></td>
+            <td><a href="new">+ new</a></td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <script src="{{ asset('js/main.js') }}"></script>
+
+{% endblock %}

@@ -1,12 +1,16 @@
 {# app/Resources/views/editDomain.html.twig #}
-{{ include('base.html.twig') }}
+{% extends 'base.html.twig' %}
 
-<h1>Edit domain</h1>
+{% block body %}
 
-{{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <h1>Edit domain</h1>
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-{{ include('base_bottom.html.twig') }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {{ include('base_bottom.html.twig') }}
+
+{% endblock %}
