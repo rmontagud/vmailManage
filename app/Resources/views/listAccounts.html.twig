@@ -2,42 +2,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>List accounts</h1>
+    <div class="pure-u">
+        <h1 class="">List accounts</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Username</th>
-        <th>Domain</th>
-        <th>Quota</th>
-        <th>Enabled</th>
-        <th>Sendonly</th>
-        <th>Action</th>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Domain</th>
+                <th>Quota</th>
+                <th>Enabled</th>
+                <th>Sendonly</th>
+                <th>Action</th>
 
-    </tr>
-    </thead>
-    <tbody>
-{% for item in accounts %}
-    <tr>
-        <td>{{ item.username }}</td>
-        <td>{{ item.domain }}</td>
-        <td>{{ item.quota }}</td>
-        <td>{% if item.enabled %} yes {% else %} no {% endif %}</td>
-        <td>{% if item.sendonly %} yes {% else %} no {% endif %}</td>
-        <td>
-            <a href="{{ item.id }}">edit</a>
-            <a href="#" onclick="confirmAction('{{ item.username }}', 'delete/{{ item.id }}');">delete</a>
-        </td>
-    </tr>
-{% endfor %}
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="5"></td>
-        <td><a href="new">+ new</a></td>
-    </tr>
-    </tfoot>
-</table>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in accounts %}
+                <tr>
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.domain }}</td>
+                    <td>{{ item.quota }}</td>
+                    <td>{% if item.enabled %} yes {% else %} no {% endif %}</td>
+                    <td>{% if item.sendonly %} yes {% else %} no {% endif %}</td>
+                    <td>
+                        <a class="pure-button pure-button-primary" href="{{ item.id }}">edit</a>
+                        <a class="button-error pure-button" href="#" onclick="confirmAction('{{ item.username }}', 'delete/{{ item.id }}');">delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td><a href="new">+ new</a></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
 
 <script src="{{ asset('js/main.js') }}"></script>
 

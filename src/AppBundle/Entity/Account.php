@@ -148,8 +148,11 @@ class Account
      */
     public function setPassword($password)
     {
+        // TODO: Future-proofing this thing with regexp: ^({([A-Z0-9-]+)})
+        // TODO: Also, see if we can use Symfony's infrastructure for this although I doubt it
         if (!preg_match('/^{SHA512-CRYPT}*/', $password)) {
-            $salt = substr(sha1(rand()), 0, 16);
+            // We have installed the random_bytes polyfill, so why don't we use it?
+            $salt = substr(sha1(random_bytes(20)), 0, 16);
             $password = "{SHA512-CRYPT}" . crypt($password, "$6$$salt");
         }
         $this->password = $password;
