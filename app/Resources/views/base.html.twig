@@ -6,30 +6,34 @@
     {% block stylesheets %}{% endblock %}
     <!-- <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" /> -->
     {#<link rel="stylesheet" href="{{ asset('css/main.css') }}"/>#}
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+    <link rel="stylesheet" href="{{ asset('css/spectre.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/spectre-exp.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/spectre-icons.min.css') }}">
 </head>
 <body>
 
 {% block javascripts %}{% endblock %}
 
-<div class="pure-g">
+<div class="container grid-lg">
 
-    <div class="header pure-u-5-5">
-        <div class="header_menu">
-            <a href="{{ path('list_domains') }}">domain</a> |
-            <a href="{{ path('list_accounts') }}">account</a> |
-            <a href="{{ path('list_aliases') }}">alias</a>
-        </div>
-        <div class="header_logon">
+    <header class="navbar">
+        <section class="navbar-section">
+            <strong>vMailManage</strong>
+        </section>
+        <section class="navbar-section">
+            <a class="btn btn-link" href="{{ path('list_domains') }}">domain</a>
+            <a class="btn btn-link" href="{{ path('list_accounts') }}">account</a>
+            <a class="btn btn-link" href="{{ path('list_aliases') }}">alias</a>
+        </section>
+        <section class="navbar-section text-center">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a href="{{ path('logout') }}">logout</a>
+                <a class="btn" href="{{ path('logout') }}">logout</a>
             {% endif %}
-        </div>
-    </div>
+        </section>
+    </header>
 
     {% block body %}{% endblock %}
-
 </div>
-
+<script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

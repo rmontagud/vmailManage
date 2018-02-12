@@ -4,44 +4,42 @@
 {% block body %}
     <div class="pure-u">
         <h1 class="">List accounts</h1>
-
-        <table class="pure-table">
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Domain</th>
-                <th>Quota</th>
-                <th>Enabled</th>
-                <th>Sendonly</th>
-                <th>Action</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            {% for item in accounts %}
-                <tr>
-                    <td>{{ item.username }}</td>
-                    <td>{{ item.domain }}</td>
-                    <td>{{ item.quota }}</td>
-                    <td>{% if item.enabled %} yes {% else %} no {% endif %}</td>
-                    <td>{% if item.sendonly %} yes {% else %} no {% endif %}</td>
-                    <td>
-                        <a class="pure-button pure-button-primary" href="{{ item.id }}">edit</a>
-                        <a class="button-error pure-button" href="#" onclick="confirmAction('{{ item.username }}', 'delete/{{ item.id }}');">delete</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="5"></td>
-                <td><a href="new">+ new</a></td>
-            </tr>
-            </tfoot>
-        </table>
     </div>
 
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Domain</th>
+            <th>Quota</th>
+            <th>Enabled</th>
+            <th>Sendonly</th>
+            <th>Action</th>
 
-<script src="{{ asset('js/main.js') }}"></script>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in accounts %}
+            <tr>
+                <td>{{ item.username }}</td>
+                <td>{{ item.domain }}</td>
+                <td>{{ item.quota }}</td>
+                <td>{% if item.enabled %} yes {% else %} no {% endif %}</td>
+                <td>{% if item.sendonly %} yes {% else %} no {% endif %}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ item.id }}">edit</a>
+                    <a class="btn btn-error" href="#" onclick="confirmAction('{{ item.username }}', 'delete/{{ item.id }}');">delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5"></td>
+            <td><a href="{{ path('edit_new_account') }}">+ new</a></td>
+        </tr>
+        </tfoot>
+    </table>
+
 
 {% endblock %}

@@ -3,10 +3,11 @@
 
 {% block body %}
 
+    <div class="columns">
+        <h1>List domains</h1>
+    </div>
 
-    <h1>List domains</h1>
-
-    <table>
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>Domain</th>
@@ -20,10 +21,13 @@
                 <td>{{ item.domain }}</td>
                 <td>
                     {% if item.accounts.count == 0 and item.aliases.count == 0 %}
-                        <a href="{{ item.id }}">edit</a>
-                        <a href="#" onclick="confirmAction('{{ item.domain }}', 'delete/{{ item.id }}');">delete</a>
+                        <a href="{{ path('edit_domain', {'id': item.id}) }}" class="btn btn-primary">edit</a>
+                        <a href="#" class="btn btn-error" onclick="confirmAction('{{ item.domain }}', '{{ path('delete_domain',{'id':item.id}) }}');">delete</a>
                     {% else %}
                         {% set showNote = true %}
+                        {% if item.accounts.count > 0 %}{{ item.accounts.count }} accounts{% endif %}
+                        {% if item.accounts.count > 0 and item.aliases.count > 0 %},{% endif %}
+                        {% if item.aliases.count > 0 %}{{ item.aliases.count }} aliases{% endif %}
                         *
                     {% endif %}
                 </td>
@@ -33,7 +37,7 @@
         <tfoot>
         <tr>
             <td></td>
-            <td><a href="new">+ new</a></td>
+            <td><a href="{{ path('edit_new_domain') }}" class="btn">+ new</a></td>
         </tr>
         </tfoot>
     </table>
@@ -41,7 +45,5 @@
     {% if showNote %}
         <p>*You can only edit or delete a domain, if there are no accounts or aliases referenced to it.</p>
     {% endif %}
-
-    <script src="{{ asset('js/main.js') }}"></script>
 
 {% endblock %}

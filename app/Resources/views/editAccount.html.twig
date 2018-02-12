@@ -3,13 +3,76 @@
 
 
 {% block body %}
+    <div class="columns">
+        <h1 class="column">Edit account</h1>
+    </div>
 
-    <h1>Edit account</h1>
 
-    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {#{{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}#}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-horizontal'}}) }}
+
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        <div class="col-3">
+            {{ form_label(form.username, null,{'label_attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="col-9">
+            {{ form_widget(form.username,{'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.username) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-3">
+            {{ form_label(form.password, null,{'label_attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="col-9">
+            {{ form_widget(form.password,{'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.password) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-3">
+            {{ form_label(form.domain, null,{'label_attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="col-9">
+            {{ form_widget(form.domain,{'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.domain) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-3">
+            {{ form_label(form.quota, null,{'label_attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="col-9">
+            {{ form_widget(form.quota,{'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.quota) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-9 col-ml-auto">
+            <label class="form-checkbox">
+                {{ form_widget(form.enabled) }}
+                <i class="form-icon"></i> Enabled
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-9 col-ml-auto">
+            <label class="form-checkbox">
+                {{ form_widget(form.sendonly) }}
+                <i class="form-icon"></i> Enabled
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-ml-auto col-9">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
     {{ form_end(form) }}
 
 {% endblock %}
