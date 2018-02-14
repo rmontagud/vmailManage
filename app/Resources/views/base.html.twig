@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}vmailManage - manage your email server{% endblock %}</title>
+    <title>vmailManage - {% block title %}manage your email server{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <!-- <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" /> -->
     {#<link rel="stylesheet" href="{{ asset('css/main.css') }}"/>#}
@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="{{ asset('css/spectre-icons.min.css') }}">
 </head>
 <body>
-
-{% block javascripts %}{% endblock %}
 
 <div class="container grid-lg">
 
@@ -34,6 +32,8 @@
 
     {% block body %}{% endblock %}
 </div>
+
+{% block javascripts %}{% endblock %}
 <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
