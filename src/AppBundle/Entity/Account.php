@@ -47,6 +47,11 @@ class Account
     private $password;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $name;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $quota;
@@ -76,16 +81,16 @@ class Account
      * @param $enabled
      * @param $sendonly
      */
-    public function set($id, $username, $domain, $password, $quota, $enabled, $sendonly)
-    {
-        $this->id = $id;
-        $this->username = $username;
-        $this->domain = $domain;
-        $this->password = $password;
-        $this->quota = $quota;
-        $this->enabled = $enabled;
-        $this->sendonly = $sendonly;
-    }
+//    public function set($id, $username, $domain, $password, $quota, $enabled, $sendonly)
+//    {
+//        $this->id = $id;
+//        $this->username = $username;
+//        $this->domain = $domain;
+//        $this->password = $password;
+//        $this->quota = $quota;
+//        $this->enabled = $enabled;
+//        $this->sendonly = $sendonly;
+//    }
 
     /**
      * @return mixed
@@ -122,6 +127,20 @@ class Account
     /**
      * @return mixed
      */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDomain()
     {
         return $this->domain;
@@ -148,13 +167,17 @@ class Account
      */
     public function setPassword($password)
     {
-        // TODO: Future-proofing this thing with regexp: ^({([A-Z0-9-]+)})\$
-        // TODO: Also, see if we can use Symfony's infrastructure for this although I doubt it
-        if (!preg_match('/^{SHA512-CRYPT}*/', $password)) {
+        // Thomas Leistter's guide uses SHA-512 for password hashing, so i'm respecting that but
+        // if you come with older virtual mail setups with other systems there's a chance you're
+        if ((!empty($password)) && (!preg_match('/^({([A-Z0-9-]{4,14})}.*)\$/', $password))) {
             // We have installed the random_bytes polyfill, so why don't we use it?
             $salt = substr(sha1(random_bytes(20)), 0, 16);
-            $password = "{SHA512-CRYPT}" . crypt($password, "$6$$salt");
+            $password = '{SHA512-CRYPT}'. crypt($password, "$6$$salt");
+        } elseif (empty($password)) {
+            // Prevent overriding the password with a blank password
+            $password = $this->password;
         }
+
         $this->password = $password;
     }
 
@@ -205,10 +228,5 @@ class Account
     {
         $this->sendonly = $sendonly;
     }
-
-
-
-
-
 
 }

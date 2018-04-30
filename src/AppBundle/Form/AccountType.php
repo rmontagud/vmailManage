@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Account;
 use AppBundle\Entity\Domain;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,7 +37,8 @@ class AccountType extends AbstractType
                 // 'data' => $options['domain']
 
                 ))
-            ->add('password', TextType::class)
+            ->add('name', TextType::class)
+            ->add('password', PasswordType::class)
             ->add('quota', IntegerType::class)
             ->add('enabled', CheckboxType::class)
             ->add('sendonly', CheckboxType::class)

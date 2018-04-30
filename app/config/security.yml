@@ -4,22 +4,29 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, panel_users]
+
         in_memory:
             #memory: ~
             memory:
-                            users:
-                                andy:
-                                    password: andy123
-                                    roles: 'ROLE_ADMIN'
-                                #admin:
-                                #    password: kitten
-                                #    roles: 'ROLE_ADMIN'
+                users:
+                    andy:
+                        password: andy123
+                        roles: 'ROLE_ADMIN'
+
+        panel_users:
+            entity:
+                class: AppBundle:User
+                property: username
+
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
 
-        #Symfony\Component\Security\Core\User\User:
-        #  algorithm: bcrypt
-        #  cost: 12
+        AppBundle\Entity\User:
+          algorithm: bcrypt
+          cost: 12
         ## to crate a bcrypted password use: php bin/console security:encode-password
 
     firewalls:
