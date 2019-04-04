@@ -5,7 +5,6 @@ namespace AppBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CheckOrphanMailboxesCommand extends ContainerAwareCommand {
@@ -13,8 +12,7 @@ class CheckOrphanMailboxesCommand extends ContainerAwareCommand {
         $this
             ->setName('check-orphan-mailboxes')
             ->setDescription('Compares vmail directory with the database accounts')
-            ->addArgument('vmaildir', InputArgument::OPTIONAL, 'vMail directory', '/var/vmail/mailboxes')
-            ->addOption('send-mail', null, InputOption::VALUE_NONE, 'Send results to email -- NYI');
+            ->addArgument('vmaildir', InputArgument::OPTIONAL, 'vMail directory', '/var/vmail/mailboxes');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -36,13 +34,6 @@ class CheckOrphanMailboxesCommand extends ContainerAwareCommand {
         } else {
             $output->writeln('<options=bold>Nothing to see here, move along</>');
         }
-
-
-        if ($input->getOption('send-mail')) {
-            // TODO: Send email to server admin to report leftover maildirs
-            $output->writeln('TODO');
-        }
-
     }
 
     protected function liveAccounts() {
